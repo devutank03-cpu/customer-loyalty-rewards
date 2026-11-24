@@ -1,6 +1,6 @@
 # EcoRewards™ — Customer Loyalty Rewards System
 
-live link :- http://customer-loyalty-rewards-devangtank.vercel.app
+live link :- https://customer-loyalty-rewards-devangtank.vercel.app
 
 A full-stack, fraud-safe Customer Loyalty Rewards System built for factories selling physical products in boxes. Features single-use cryptographic box codes, atomic anti-concurrency claims, sliding-window rate limiting, a live rewards redemption catalog, and a factory owner administrative dashboard with printable QR box-insert cards.
 
@@ -8,7 +8,7 @@ A full-stack, fraud-safe Customer Loyalty Rewards System built for factories sel
 
 ## Live Vercel Deployment
 
-- **Live Production URL**: `https://customer-loyalty-rewards.vercel.app` *(or your custom Vercel domain)*
+- **Live Production URL**: `https://customer-loyalty-rewards-devangtank.vercel.app` *(or your custom Vercel domain)*
 - **Admin Dashboard**: `https://customer-loyalty-rewards.vercel.app/admin`
 - **Default Factory Admin Passcode**: `factory2026`
 
