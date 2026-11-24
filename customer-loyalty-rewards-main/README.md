@@ -90,7 +90,7 @@ A full-stack, fraud-safe Customer Loyalty Rewards System built for factories sel
    ```bash
    npm run dev
    ```
-   Open [http://localhost:3000](http://localhost:3000) for the Customer Portal or [http://localhost:3000/admin](http://localhost:3000/admin) for the Factory Admin Dashboard.
+   Open [http://localhost:3000/](http://localhost:3000) for the Customer Portal or [http://localhost:3000/admin](http://localhost:3000/admin) for the Factory Admin Dashboard.
 
 4. **Production Build**:
    ```bash
