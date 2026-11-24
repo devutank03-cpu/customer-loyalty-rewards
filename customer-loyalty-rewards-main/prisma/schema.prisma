@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Batch {
+  id            String    @id @default(uuid())
+  name          String
+  productName   String
+  pointsPerCode Int
+  quantity      Int
+  createdAt     DateTime  @default(now())
+  codes         BoxCode[]
+}
+
+model BoxCode {
+  id           String    @id @default(uuid())
+  code         String    @unique
+  batchId      String
+  batch        Batch     @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  status       String    @default("UNCLAIMED") // "UNCLAIMED" | "REDEEMED" | "REVOKED"
+  redeemedById String?
+  redeemedBy   Customer? @relation(fields: [redeemedById], references: [id])
+  redeemedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  @@index([status])
+}
+
+model Customer {
+  id            String             @id @default(uuid())
+  name          String
+  contact       String             @unique
+  pointsBalance Int                @default(0)
+  totalEarned   Int                @default(0)
+  createdAt     DateTime           @default(now())
+  claimedBoxes  BoxCode[]
+  redemptions   RewardRedemption[]
+}
+
+model RewardItem {
+  id          String             @id @default(uuid())
+  title       String
+  description String
+  pointsCost  Int
+  stock       Int
+  active      Boolean            @default(true)
+  redemptions RewardRedemption[]
+}
+
+model RewardRedemption {
+  id          String     @id @default(uuid())
+  customerId  String
+  customer    Customer   @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  rewardId    String
+  reward      RewardItem @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+  pointsSpent Int
+  status      String     @default("PENDING") // "FULFILLED" | "PENDING"
+  createdAt   DateTime   @default(now())
+
+  @@index([customerId])
+  @@index([rewardId])
+}
+
+model FraudLog {
+  id            String   @id @default(uuid())
+  attemptedCode String
+  contact       String
+  reason        String   // "INVALID_CODE" | "ALREADY_REDEEMED" | "REVOKED_CODE" | "RATE_LIMITED"
+  createdAt     DateTime @default(now())
+
+  @@index([contact, createdAt])
+}
